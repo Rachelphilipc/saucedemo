@@ -6,14 +6,14 @@ from selenium.webdriver.common.by import By
 import unittest
 import time
 
-options = Options()
+options = webdriver.ChromeOptions()
 options.add_argument("--headless")
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 class SauceDemoLoginTests(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         self.driver.get("https://www.saucedemo.com")
 
     def tearDown(self):
