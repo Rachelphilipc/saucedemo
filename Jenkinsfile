@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     // Run your Python script
-                    sh 'python3 saucedemo.py'
+                    sh 'python path/to/your/test_script.py'
                 }
             }
         }
