@@ -4,9 +4,9 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import unittest
+import time
 
 options = Options()
-options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 class SauceDemoLoginTests(unittest.TestCase):
@@ -50,3 +50,4 @@ class SauceDemoLoginTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    time.sleep(5)
