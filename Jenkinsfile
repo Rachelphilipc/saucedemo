@@ -4,37 +4,23 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your code repository
                 checkout scm
             }
         }
         stage('Test') {
             steps {
                 script {
-                    // Set up virtual display if running headless
-                    // For example: Xvfb :99 &
-                    sh 'pip install -r requirements.txt'  // Install dependencies
-                    sh 'python -m unittest discover -s tests -p "saucedemo.py" --junitxml=test-results.xml'  // Run tests and generate JUnit XML
+                    sh 'pip install -r requirements.txt'
+                    sh 'python -m unittest discover -s tests -p "saucedemo.py" --junitxml=test-results.xml'
                 }
-            }
-        }
-        stage('Publish HTML Reports') {
-            steps {
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'tests/reports',
-                    reportFiles: 'index.html',
-                    reportName: 'Test Results'
-                ])
             }
         }
     }
 
     post {
         always {
-            // Clean up steps if needed
+            // Here you can perform cleanup or additional actions
+            echo 'Always executed'
         }
         success {
             echo 'Tests passed!'
