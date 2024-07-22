@@ -1,12 +1,5 @@
 pipeline {
-    agent any
-
-    environment {
-        DB_URL = 'jdbc:mysql://localhost:3306/test_results_db'
-        DB_USER = credentials('root')  // Use Jenkins credentials plugin for secure credential handling
-        DB_PASS = credentials('Test@1234')  // Replace 'root' and 'Test@1234' with your credential IDs
-    }
-    
+    agent any    
     stages {
         stage('Checkout') {
             steps {
