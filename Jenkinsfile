@@ -11,11 +11,4 @@ pipeline {
         
         // Additional stages for running tests, deployment, etc.
     }
-    
-    // Post-build actions or notifications
-    post {
-        always {
-            // Clean up or post-processing steps if needed
-        }
-    }
 }
