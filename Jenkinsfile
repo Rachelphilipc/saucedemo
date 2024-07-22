@@ -1,13 +1,6 @@
 pipeline {
   agent any
-
-  environment {
-    // Consider using Jenkins Credentials Plugin for secure credential handling
-    DB_URL = 'jdbc:mysql://localhost:3306/test_results_db'
-    DB_USER = 'root'
-    DB_PASS = 'Test@1234'
-  }
-
+  
   stages {
     stage('Checkout') {
       steps {
@@ -23,4 +16,9 @@ pipeline {
       }
     }
   }
+  post {
+        always {
+            archiveArtifacts artifacts: 'output.txt'
+        }
+    }
 }
