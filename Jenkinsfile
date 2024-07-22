@@ -19,16 +19,18 @@ pipeline {
             steps {
                 // Example: Build and execute your Python script
                 sh 'python3 testcases.py > output.txt'  // Redirect output to a file
-                
-                // Read the output file
-                def testOutput = readFile('output.txt').trim()
-                echo "Test output: ${testOutput}"
-                
-                // Parse the test results
-                def (passed, failed, skipped) = parseTestResults(testOutput)
-                
-                // Update database based on test results
-                updateDatabase(passed, failed, skipped)
+
+                script {
+                    // Read the output file
+                    def testOutput = readFile('output.txt').trim()
+                    echo "Test output: ${testOutput}"
+                    
+                    // Parse the test results
+                    def (passed, failed, skipped) = parseTestResults(testOutput)
+                    
+                    // Update database based on test results
+                    updateDatabase(passed, failed, skipped)
+                }
             }
         }
     }
