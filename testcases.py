@@ -102,7 +102,8 @@ if __name__ == '__main__':
     passed = result.testsRun - len(result.errors) - len(result.failures)
     failed = len(result.errors) + len(result.failures)
     skipped = len(result.skipped)
+    total = passed + failed + skipped
     today_date = date.today()
 
     # Print the result in the desired format
-    print(f"Date: {today_date}, test_name: 'Log In Test', passed {passed}, failed {failed}, skipped {skipped}")
+    print(f"Date: {today_date}, test_name: 'Log In Test', total: {total}, passed {passed}, failed {failed}, skipped {skipped}")
