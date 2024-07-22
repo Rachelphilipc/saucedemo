@@ -23,7 +23,7 @@ class SauceDemoTest(unittest.TestCase):
 
     def test_login_valid_credentials(self):
         username = "standard_user"
-        password = "secret_sauce_KOMALI"
+        password = "secret_sauce"
 
         self.login(username, password)
 
