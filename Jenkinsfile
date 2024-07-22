@@ -13,12 +13,8 @@ pipeline {
       steps {
         // Example: Build and execute your Python script
         sh 'python3 testcases.py'
+        archiveArtifacts artifacts: 'output.txt'
       }
     }
   }
-  post {
-        always {
-            archiveArtifacts artifacts: 'output.txt'
-        }
-    }
 }
