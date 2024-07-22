@@ -105,4 +105,4 @@ if __name__ == '__main__':
     today_date = date.today()
 
     # Print the result in the desired format
-    print(f"Date: {today_date}, test_type: 'Log In Test', passed {passed}, failed {failed}, skipped {skipped}")
+    print(f"Date: {today_date}, test_name: 'Log In Test', passed {passed}, failed {failed}, skipped {skipped}")
