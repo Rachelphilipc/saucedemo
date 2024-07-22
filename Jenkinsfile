@@ -15,7 +15,7 @@ pipeline {
         sh 'python3 testcases.py' > output.txt
       }
     }
-    stage('Store it in a db') {
+    stage('Store') {
       steps {
         // Example: Build and execute your Python script
         sh 'python3 parsemydata.py'
