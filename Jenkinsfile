@@ -1,26 +1,24 @@
 pipeline {
-  agent any
-  
-  stages {
-    stage('Checkout') {
-      steps {
-        // Checkout your repository using the configured Git installation
-        git branch: 'main', url: 'https://github.com/Rachelphilipc/saucedemo.git'
-      }
-    }
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Rachelphilipc/saucedemo.git'
+            }
+        }
 
-    stage('Test') {
-      steps {
-        // Example: Build and execute your Python script
-        sh 'python3 testcases.py' > output.txt
-      }
+        stage('Test') {
+            steps {
+                sh 'python3 testcases.py > output.txt'
+            }
+        }
+
+        stage('Store') {
+            steps {
+                sh 'python3 parsemydata.py'
+                archiveArtifacts artifacts: 'output.txt'
+            }
+        }
     }
-    stage('Store') {
-      steps {
-        // Example: Build and execute your Python script
-        sh 'python3 parsemydata.py'
-        archiveArtifacts artifacts: 'output.txt'
-      }
-    }
-  }
 }
