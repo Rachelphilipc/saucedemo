@@ -26,17 +26,32 @@ pipeline {
     stage('Store Results in Database') {
             steps {
                 script {
-                    // Parse test results from Jenkins console output
+
+                  // Parse test results from Jenkins console output
                     def counts = sh(returnStdout: true, script: 'grep "passed\\|failed\\|skipped" $JENKINS_HOME/jobs/$JOB_NAME/builds/$BUILD_NUMBER/log | tail -n1')
                     
                     def passed = counts.take(1)
                     def failed = counts.take(2)
                     def skipped = counts.take(3)
-
-                    // Insert results into MySQL database
-                    sql = Sql.newInstance(env.DB_URL, env.DB_USER, env.DB_PASS, 'com.mysql.jdbc.Driver')
-                    sql.execute("INSERT INTO test_results (passed, failed, skipped) VALUES (${passed}, ${failed}, ${skipped})")
-                }
+                    
+                    // Execute SQL query using jdbcStep
+                    def sqlQuery = "INSERT INTO test_results (passed, failed, skipped) VALUES (${passed}, ${failed}, ${skipped})"
+                    def sql = jdbcStatement(
+                        credentialsId: 'your-db-credentials-id',  // Use Jenkins credentials plugin to store DB credentials
+                        driver: 'com.mysql.jdbc.Driver',  // Specify your JDBC driver
+                        url: env.DB_URL,
+                        username: env.DB_USER,
+                        password: env.DB_PASS,
+                        sql: sqlQuery
+                    )
+                    
+                    // Check for SQL execution status
+                    if (sql.rowsAffected == 1) {
+                        echo "Data inserted successfully into database."
+                    } else {
+                        error "Failed to insert data into database."
+                    }
+                    }
             }
         }
   }
