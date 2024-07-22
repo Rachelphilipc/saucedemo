@@ -12,7 +12,7 @@ pipeline {
     stage('Run Tests') {
             steps {
                 // Run your Python script
-                sh 'python testcases.py'
+                sh 'python3 testcases.py'
             }
         }
         // Additional stages for running tests, deployment, etc.
