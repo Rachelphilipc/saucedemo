@@ -7,7 +7,7 @@ def extract_username_from_jenkins_output(filename):
             
             # Try to find the username using different patterns
             # Pattern 1: Started by user <username>
-            match = re.search(r'Started by user (\w+)', jenkins_output)
+            match = re.search(r'Passed (\w+)', jenkins_output)
             if match:
                 return match.group(1)
             
