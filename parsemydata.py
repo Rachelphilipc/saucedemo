@@ -72,7 +72,7 @@ def store_in_mysql(data):
         print(f"Error inserting data into MySQL: {error}")
 
     finally:
-        if conn.is_connected():
+        # if conn.is_connected():
             cursor.close()
             conn.close()
 
