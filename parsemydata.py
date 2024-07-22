@@ -1,4 +1,3 @@
-import re
 import mysql.connector
 
 def extract_counts_from_output(output):
@@ -27,16 +26,16 @@ def insert_into_mysql(passed, failed, skipped):
             host='localhost',
             port=3306,
             database='test_results_db',
-            user='root',
-            password='Test@1234'
+            user='your_username',
+            password='your_password'
         )
         
         # Create a cursor object using the cursor() method
         cursor = conn.cursor()
         
         # Prepare SQL query to INSERT a record into the database
-        sql = "INSERT INTO test_1 (passed, failed, skipped) VALUES (%s, %s, %s)"
-        data = (passed, failed, skipped)
+        sql = "INSERT INTO test_1 (test_name, passed, failed, skipped) VALUES (%s, %s, %s, %s)"
+        data = ("Log In Test", passed, failed, skipped)
         
         # Execute the SQL command
         cursor.execute(sql, data)
@@ -51,7 +50,7 @@ def insert_into_mysql(passed, failed, skipped):
         
     finally:
         # Close cursor and connection
-        if conn.is_connected():
+        if 'conn' in locals() and conn.is_connected():
             cursor.close()
             conn.close()
             print("MySQL connection is closed")
