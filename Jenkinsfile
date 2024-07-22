@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         DB_URL = 'jdbc:mysql://localhost:3306/test_results_db'
-        DB_USER = credentials('mysql-user')  // Use Jenkins credentials plugin for secure credential handling
-        DB_PASS = credentials('mysql-pass')  // Replace 'mysql-user' and 'mysql-pass' with your credential IDs
+        DB_USER = credentials('root')  // Use Jenkins credentials plugin for secure credential handling
+        DB_PASS = credentials('Test@1234')  // Replace 'mysql-user' and 'mysql-pass' with your credential IDs
     }
     
     stages {
@@ -14,20 +14,12 @@ pipeline {
                 git branch: 'main ', url: 'https://github.com/Rachelphilipc/saucedemo.git'
             }
         }
-
-    stage('Run Tests') {
-            steps {
-                // Run your Python script
-                sh 'python3 testcases.py'
-            }
-        }
-        // Additional stages for running tests, deployment, etc.
     }
 
     stage('Build and Test') {
             steps {
                 // Example: Build and execute your Python script
-                sh 'python your_script.py > output.txt'  // Redirect output to a file
+                sh 'python3 testcases.py > output.txt'  // Redirect output to a file
                 
                 // Read the output file
                 def testOutput = readFile('output.txt').trim()
@@ -52,9 +44,9 @@ def parseTestResults(testOutput) {
 
 def updateDatabase(passed, failed, skipped) {
     def dbParams = [
-        url: DB_URL,
-        user: DB_USER,
-        password: DB_PASS,
+        url: jdbc:mysql://localhost:3306/test_results_db,
+        user: root,
+        password: Test@1234,
         driver: 'com.mysql.jdbc.Driver'
     ]
     
