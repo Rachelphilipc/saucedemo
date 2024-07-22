@@ -26,8 +26,8 @@ def insert_into_mysql(passed, failed, skipped):
             host='localhost',
             port=3306,
             database='test_results_db',
-            user='your_username',
-            password='your_password'
+            user='root',
+            password='Test@1234'
         )
         
         # Create a cursor object using the cursor() method
