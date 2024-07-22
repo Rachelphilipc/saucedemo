@@ -10,14 +10,14 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'python3 testcases.py > output.txt'
+                sh 'python3 testcases.py > output1.txt'
             }
         }
 
         stage('Store') {
             steps {
                 sh 'python3 parsemydata.py'
-                archiveArtifacts artifacts: 'output.txt'
+                archiveArtifacts artifacts: 'output1.txt'
             }
         }
     }
