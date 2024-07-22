@@ -8,53 +8,11 @@ pipeline {
             }
         }
         
-        stage('Build and Test') {
+        stage('Test') {
             steps {
                 // Example: Build and execute your Python script
-                sh 'python3 testcases.py > output.txt'  // Redirect output to a file
-
-                script {
-                    // Read the output file
-                    def testOutput = readFile('output.txt').trim()
-                    echo "Test output: ${testOutput}"
-                    
-                    // Parse the test results
-                    def (passed, failed, skipped) = parseTestResults(testOutput)
-                    
-                    // Update database based on test results
-                    updateDatabase(passed, failed, skipped)
-                }
-            }
+                sh 'python3 testcases.py'  // Redirect output to a file
         }
     }
 }
-
-def parseTestResults(testOutput) {
-    def passed = testOutput =~ /passed (\d+)/ ? Integer.parseInt(testOutput[0][1]) : 0
-    def failed = testOutput =~ /failed (\d+)/ ? Integer.parseInt(testOutput[0][1]) : 0
-    def skipped = testOutput =~ /skipped (\d+)/ ? Integer.parseInt(testOutput[0][1]) : 0
-    
-    return [passed, failed, skipped]
-}
-
-def updateDatabase(passed, failed, skipped) {
-    def dbParams = [
-        url: 'jdbc:mysql://localhost:3306/test_results_db',
-        user: 'root',
-        password: 'Test@1234',
-        driver: 'com.mysql.jdbc.Driver'
-    ]
-    
-    def sql = Sql.newInstance(dbParams.url, dbParams.user, dbParams.password, dbParams.driver)
-    
-    try {
-        // Insert test results into the database
-        sql.execute("INSERT INTO test_results (passed_count, failed_count, skipped_count, build_number, build_timestamp) " +
-                    "VALUES (${passed}, ${failed}, ${skipped}, '${env.BUILD_NUMBER}', NOW())")
-    } catch (Exception e) {
-        echo "Error executing SQL query: ${e.message}"
-    } finally {
-        // Close connection
-        sql.close()
-    }
 }
