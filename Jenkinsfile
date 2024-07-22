@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your repository
-                git 'https://github.com/yourusername/your-repo.git'
+                git 'https://github.com/Rachelphilipc/saucedemo.git'
             }
         }
         
