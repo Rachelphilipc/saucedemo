@@ -32,7 +32,8 @@ def parse_jenkins_console(console_output):
 def store_in_mysql(data):
     try:
         conn = mysql.connector.connect(
-            host='localhost:3306',
+            host='localhost',
+            port=3306,
             database='test_results_db',
             user='root',
             password='Test@1234'
@@ -72,17 +73,24 @@ def store_in_mysql(data):
         print(f"Error inserting data into MySQL: {error}")
 
     finally:
-        if conn.is_connected():
+        if 'conn' in locals() and conn.is_connected():
             cursor.close()
             conn.close()
 
 if __name__ == "__main__":
     # Read Jenkins output from a file (output.txt)
-    with open('output.txt', 'r') as file:
-        console_output = file.read()
+    try:
+        with open('output.txt', 'r') as file:
+            console_output = file.read()
 
-    # Parse Jenkins console output
-    parsed_data = parse_jenkins_console(console_output)
+        # Parse Jenkins console output
+        parsed_data = parse_jenkins_console(console_output)
 
-    # Store parsed data in MySQL
-    store_in_mysql(parsed_data)
+        # Store parsed data in MySQL
+        store_in_mysql(parsed_data)
+    
+    except FileNotFoundError:
+        print("File 'output.txt' not found. Make sure the file exists and try again.")
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
