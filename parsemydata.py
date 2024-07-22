@@ -19,7 +19,7 @@ def extract_counts_from_output(output):
         print("Error: Unable to convert count to integer.")
         return None, None, None
 
-def insert_into_mysql(passed, failed, skipped):
+def insert_into_mysql(test_name, total, passed, failed, skipped):
     try:
         # Connect to MySQL
         conn = mysql.connector.connect(
@@ -34,8 +34,8 @@ def insert_into_mysql(passed, failed, skipped):
         cursor = conn.cursor()
         
         # Prepare SQL query to INSERT a record into the database
-        sql = "INSERT INTO test_2 (test_name,total, passed, failed, skipped) VALUES (%s, %s, %s, %s, %s)"
-        data = ("Log In Test",total, passed, failed, skipped)
+        sql = "INSERT INTO test_2 (test_name, total, passed, failed, skipped) VALUES (%s, %s, %s, %s, %s)"
+        data = (test_name, total, passed, failed, skipped)
         
         # Execute the SQL command
         cursor.execute(sql, data)
@@ -63,4 +63,6 @@ with open(filename, 'r') as file:
 passed, failed, skipped = extract_counts_from_output(output)
 
 if passed is not None and failed is not None and skipped is not None:
-    insert_into_mysql(passed, failed, skipped)
+    total = passed + failed + skipped
+    test_name = "Log In Test"  # Adjust as per your test name
+    insert_into_mysql(test_name, total, passed, failed, skipped)
