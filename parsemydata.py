@@ -34,7 +34,7 @@ def insert_into_mysql(passed, failed, skipped):
         cursor = conn.cursor()
         
         # Prepare SQL query to INSERT a record into the database
-        sql = "INSERT INTO test_1 (test_name, passed, failed, skipped) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO test_2 (test_name, passed, failed, skipped) VALUES (%s, %s, %s, %s)"
         data = ("Log In Test", passed, failed, skipped)
         
         # Execute the SQL command
