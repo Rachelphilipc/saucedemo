@@ -71,10 +71,10 @@ def store_in_mysql(data):
     except mysql.connector.Error as error:
         print(f"Error inserting data into MySQL: {error}")
 
-    finally:
-        # if conn.is_connected():
-            cursor.close()
-            conn.close()
+    # finally:
+    #     # if conn.is_connected():
+    #         cursor.close()
+    #         conn.close()
 
 if __name__ == "__main__":
     # Read Jenkins output from a file (output.txt)
