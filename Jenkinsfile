@@ -47,7 +47,7 @@ def parseTestResults(testOutput) {
 def updateDatabase(passed, failed, skipped) {
     def dbParams = [
         url: 'jdbc:mysql://localhost:3306/test_results_db',
-        user: root,
+        user: 'root',
         password: 'Test@1234',
         driver: 'com.mysql.jdbc.Driver'
     ]
