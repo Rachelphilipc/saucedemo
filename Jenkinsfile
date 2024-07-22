@@ -19,12 +19,8 @@ pipeline {
       steps {
         // Example: Build and execute your Python script
         sh 'python3 parsemydata.py'
+        archiveArtifacts artifacts: 'output.txt'
       }
     }
   }
-  post {
-        always {
-            archiveArtifacts artifacts: 'output.txt'
-        }
-    }
 }
