@@ -46,7 +46,7 @@ def updateDatabase(passed, failed, skipped) {
     def dbParams = [
         url: 'jdbc:mysql://localhost:3306/test_results_db',
         user: root,
-        password: Test@1234,
+        password: 'Test@1234',
         driver: 'com.mysql.jdbc.Driver'
     ]
     
