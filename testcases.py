@@ -85,7 +85,7 @@ class SauceDemoTest(unittest.TestCase):
 
     def login(self, username, password):
         username_field = self.driver.find_element_by_id("user-name")
-        password_field = self.driver.find_element_by_id("password")
+        password_field = self.driver.find_element_by_id("password###KOMALI")
         login_button = self.driver.find_element_by_css_selector("[type='submit']")
 
         username_field.send_keys(username)
