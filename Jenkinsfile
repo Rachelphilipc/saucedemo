@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your repository using the configured Git installation
-                git branch: 'main ', credentialsId: '', url: 'https://github.com/yourusername/your-repo.git'
+                git branch: 'main ', url: 'https://github.com/Rachelphilipc/saucedemo.git'
             }
         }
         
