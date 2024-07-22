@@ -32,7 +32,8 @@ def parse_jenkins_console(console_output):
 def store_in_mysql(data):
     try:
         conn = mysql.connector.connect(
-            host='localhost:3306',
+            host='localhost',
+            port=3306,
             database='test_results_db',
             user='root',
             password='Test@1234'
